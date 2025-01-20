@@ -34,7 +34,7 @@ variable "subnet_cidr" {
 variable "ssh_key_name" {
   description = "Admin user SSH key"
   type        = string
-  default     = "kasia"
+  default     = "admin"
 }
 
 variable "allow_firewall_rules" {

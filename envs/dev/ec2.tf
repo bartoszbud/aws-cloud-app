@@ -7,4 +7,5 @@ module "ec2_firewall" {
   subnet_cidr          = var.subnet_cidr
   network_name         = "${var.environment}-vpc"
   allow_firewall_rules = var.allow_firewall_rules
+  depends_on = [ module.vpc ]
 }
