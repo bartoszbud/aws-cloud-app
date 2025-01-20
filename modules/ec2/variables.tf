@@ -1,18 +1,3 @@
-variable "region" {
-  description = "AWS region"
-  type        = string
-}
-
-variable "environment" {
-  description = "Type of environment"
-  type        = string
-}
-
-variable "table_name" {
-  description = "Lock table name"
-  type = string  
-}
-
 variable "ec2_instances" {
   description = "Map of EC2 instances to create"
   type = map(object({
@@ -22,8 +7,14 @@ variable "ec2_instances" {
     ip_host              = number
   }))
 }
+
+variable "environment" {
+  description = "Type of environment"
+  type        = string
+  default     = "dev"
+}
 variable "ami_id" {
-  description = "AMI ID for the EC2 instances (for Ubuntu)"
+  description = "AMI ID for the EC2 instances"
   type        = string
 }
 
@@ -31,10 +22,10 @@ variable "subnet_cidr" {
   description = "The CIDR range for the subnet"
   type        = string
 }
-variable "ssh_key_name" {
-  description = "Admin user SSH key"
+
+variable "network_name" {
+  description = "Network name for the security group"
   type        = string
-  default     = "kasia"
 }
 
 variable "allow_firewall_rules" {
@@ -46,4 +37,15 @@ variable "allow_firewall_rules" {
     description      = string
     source_ip_ranges = list(string)
   }))
+}
+variable "ssh_key_name" {
+  description = "Admin user SSH key"
+  type        = string
+  default     = "admin"
+}
+
+variable "associate_public_ip_address" {
+  description = "Enable external IP"
+  type        = bool
+  default     = true
 }
