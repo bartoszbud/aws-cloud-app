@@ -2,19 +2,23 @@ region      = "us-east-1"
 environment = "dev"
 table_name  = "clapp-tf-state-lock-table"
 ami_id      = "ami-07593001243a00d0a"
-subnet_cidr = "10.0.3.0/24"
+//subnet_cidr = "10.0.3.0/24"
 
 ec2_instances = {
   "CloudApp-web01" = {
     instance_type        = "t2.micro"
     availability_zone    = "us-east-1a"
     instance_description = "Web application"
+    subnet_name          = "public-subnet-01"
+    subnet_cidr          = "10.0.3.0/24"
     ip_host              = 4
   }
   "CloudApp-web02" = {
     instance_type        = "t2.micro"
-    availability_zone    = "us-east-1a"
+    availability_zone    = "us-east-1b"
     instance_description = "Web application"
+    subnet_name          = "public-subnet-02"
+    subnet_cidr          = "10.0.4.0/24"
     ip_host              = 5
   }
 }
