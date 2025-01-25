@@ -4,6 +4,8 @@ variable "ec2_instances" {
     instance_type        = string
     instance_description = optional(string)
     availability_zone    = string
+    subnet_name          = string
+    subnet_cidr          = string
     ip_host              = number
   }))
 }
@@ -18,10 +20,10 @@ variable "ami_id" {
   type        = string
 }
 
-variable "subnet_cidr" {
+/*variable "subnet_cidr" {
   description = "The CIDR range for the subnet"
   type        = string
-}
+}*/
 
 variable "network_name" {
   description = "Network name for the security group"

@@ -10,7 +10,7 @@ variable "environment" {
 
 variable "table_name" {
   description = "Lock table name"
-  type = string  
+  type        = string  
 }
 
 variable "ec2_instances" {
@@ -24,6 +24,7 @@ variable "ec2_instances" {
     ip_host              = number
   }))
 }
+
 variable "ami_id" {
   description = "AMI ID for the EC2 instances (for Ubuntu)"
   type        = string
@@ -33,6 +34,7 @@ variable "ami_id" {
   description = "The CIDR range for the subnet"
   type        = string
 }*/
+
 variable "ssh_key_name" {
   description = "Admin user SSH key"
   type        = string
@@ -49,3 +51,8 @@ variable "allow_firewall_rules" {
     source_ip_ranges = list(string)
   }))
 }
+
+/*variable "ec2_instance_ips" {
+  description = "List of EC2 instance IPs to attach to the load balancer target group"
+  type        = list(string)
+}*/

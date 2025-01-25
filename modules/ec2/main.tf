@@ -6,9 +6,11 @@ data "aws_vpc" "vpc" {
 }
 
 data "aws_subnet" "public_subnet" {
+  for_each = var.ec2_instances
+
   filter {
     name   = "tag:Name"
-    values = ["${var.environment}-public-subnet-01"]
+    values = ["${var.environment}-${each.value.subnet_name}"]
   }
   vpc_id = data.aws_vpc.vpc.id
 }
@@ -28,18 +30,23 @@ resource "aws_security_group" "firewall_rules" {
       description = ingress.value.description
     }
   }
+
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.environment}-security-group"
+  }
 }
 
 resource "aws_network_interface" "main" {
   for_each        = var.ec2_instances
-  subnet_id       = data.aws_subnet.public_subnet.id
-  private_ips     = [cidrhost(var.subnet_cidr, each.value.ip_host)]
+  subnet_id       = data.aws_subnet.public_subnet[each.key].id
+  private_ips     = [cidrhost(data.aws_subnet.public_subnet[each.key].cidr_block, each.value.ip_host)]
   security_groups = [aws_security_group.firewall_rules.id]
 }
 
@@ -71,6 +78,12 @@ resource "aws_instance" "main" {
 
               echo "Instalacja nginx"
               apt-get install -y nginx
+
+              echo "Modyfikacja pliku index.html"
+              sudo chmod 777 /var/www/html/index.nginx-debian.html
+              mv /var/www/html/index.nginx-debian.html /var/www/html/index.html 
+              echo "<h1>Witaj na stronie CloudApp - $HOSTNAME</h1>" > /var/www/html/index.html
+              sudo chmod 644 /var/www/html/index.html
               EOF
 
   network_interface {
