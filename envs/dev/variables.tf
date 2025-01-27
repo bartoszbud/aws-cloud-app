@@ -1,3 +1,4 @@
+#Project variables
 variable "region" {
   description = "AWS region"
   type        = string
@@ -8,11 +9,32 @@ variable "environment" {
   type        = string
 }
 
+#State variables
 variable "table_name" {
   description = "Lock table name"
   type        = string  
 }
 
+#VPC variables
+variable "public_subnets" {
+  description = "Map of public subnets"
+  type = map(object({
+    cidr                    = string
+    availability_zone       = string
+    map_public_ip_on_launch = bool
+  }))
+}
+
+variable "private_subnets" {
+  description = "Map of private subnets"
+  type = map(object({
+    cidr                    = string
+    availability_zone       = string
+    map_public_ip_on_launch = bool
+  }))
+}
+
+#EC2 variables
 variable "ec2_instances" {
   description = "Map of EC2 instances to create"
   type = map(object({
@@ -56,3 +78,5 @@ variable "allow_firewall_rules" {
   description = "List of EC2 instance IPs to attach to the load balancer target group"
   type        = list(string)
 }*/
+
+#RDS variables

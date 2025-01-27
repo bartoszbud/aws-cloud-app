@@ -1,8 +1,39 @@
+#Project variables values
 region      = "us-east-1"
 environment = "dev"
+
+#State variables values
 table_name  = "clapp-tf-state-lock-table"
+
+#VPC variables values
+private_subnets = {
+    "dev-private-subnet-01" = {
+      cidr                    = "10.0.1.0/24"
+      availability_zone       = "us-east-1a"
+      map_public_ip_on_launch = false
+    },
+    "dev-private-subnet-02" = {
+      cidr                    = "10.0.2.0/24"
+      availability_zone       = "us-east-1b"
+      map_public_ip_on_launch = false
+    }
+  }
+
+  public_subnets = {
+    "dev-public-subnet-01" = {
+      cidr                    = "10.0.3.0/24"
+      availability_zone       = "us-east-1a"
+      map_public_ip_on_launch = true
+    },
+    "dev-public-subnet-02" = {
+      cidr                    = "10.0.4.0/24"
+      availability_zone       = "us-east-1b"
+      map_public_ip_on_launch = true
+    }
+  }
+
+#EC2 variables values
 ami_id      = "ami-07593001243a00d0a"
-//subnet_cidr = "10.0.3.0/24"
 
 ec2_instances = {
   "CloudApp-web01" = {
