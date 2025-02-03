@@ -52,11 +52,6 @@ variable "ami_id" {
   type        = string
 }
 
-/*variable "subnet_cidr" {
-  description = "The CIDR range for the subnet"
-  type        = string
-}*/
-
 variable "ssh_key_name" {
   description = "Admin user SSH key"
   type        = string
@@ -74,9 +69,34 @@ variable "allow_firewall_rules" {
   }))
 }
 
-/*variable "ec2_instance_ips" {
-  description = "List of EC2 instance IPs to attach to the load balancer target group"
-  type        = list(string)
-}*/
-
 #RDS variables
+variable "name" {
+  description = "IDK"
+  type        = string
+}
+
+variable "pub_subnets" {
+  description = "List of public subnet IDs"
+  type        = list(string)
+}
+
+variable "db_instance_identifier" {
+  description = "The DB instance identifier"
+  type        = string
+  default     = "public-mysql-db"
+}
+
+variable "db_username" {
+  description = "Master username for the DB instance"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Master password for the DB instance"
+  type        = string
+}
+
+variable "allowed_ips" {
+  description = "List of allowed CIDR blocks for MySQL access"
+  type        = list(string)
+}

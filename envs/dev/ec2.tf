@@ -1,6 +1,6 @@
 provider "aws" {}
 
-module "ec2_firewall" {
+module "ec2" {
   source               = "../../modules/ec2"
   ec2_instances        = var.ec2_instances
   ami_id               = var.ami_id
